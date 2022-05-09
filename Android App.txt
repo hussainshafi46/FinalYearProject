@@ -1,0 +1,41 @@
+App interacts with the API
+
+Example Endpoints
+1. www.registerface.api -> to register new user
+2. www.identifyme.today -> to validate face and log attendance
+
+--------------------------------------
+
+1. To register a new user
+
+App Clicks User Images (3-5)
+Sends it to the API endpoint (use Retrofit or OkHttp or any way to interact with API using HTTP requests)
+API returns success/failure with the generated User Id (JSON response)
+App saves the User Id in some persistent storage (eg. SharedPreferences or JetPack DataStore) and displays success/failure status
+
+2. To validate user for attendance
+
+App clicks image
+Sends image to API with UserId in the header
+API returns success/failure with the identified emotion (JSON response)
+App parses the response and displays success/failure status
+
+
+FORMATS
+-------
+App sends images as multipart data
+Header key for sending User Id should be : userId
+
+
+----------------------------
+Helper Libraries to Refer to
+----------------------------
+- GSON
+- Jackson
+
+- Retrofit2
+- OkHttp3
+
+- JetPack DataStore
+
+ 
