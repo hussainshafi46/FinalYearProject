@@ -8,23 +8,19 @@ app = Flask(__name__)
 faceRecognizer = FaceRecognizer()
 emotionRecognizer = EmotionRecognizer()
 
-@app.route('/', methods = ['POST'])
+@app.route('/logAttendance', methods = ['POST'])
 def identify():
-  file = request.files['image']
-  #img = Image.open(file.stream)
-  data = file.stream.read()
-  print(type(data))
-  #data = base64.encodebytes(data)
-  #data = base64.b64encode(data).decode() 
-  if faceRecognizer.recognize(): # send image from multipart data and userId from header
+  file = request.files['file']
+  img = Image.open(file)
+  if faceRecognizer.recognize(img, uid): # send image from multipart data and userId from header
     # Person identifued successfully
-    emotion = emotionRecognizer.classify() # send image
+    emotion = emotionRecognizer.classify(img) # send image
     return jsonify({"status":200, "verified":True, "emotion":emotion})
   else:
     # Recognition failed
     return jsonify({"status":201, "verified":False, "message":"This person does not exist in the database"})
 
-@app.route("/register", methods = ['GET'])
+@app.route("/register", methods = ['POST'])
 def registerFace():
   if not faceRecognizer.recognize(): # send image from multipart data (DO NOT SEND USER ID)
     # if face does not exist in database
