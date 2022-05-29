@@ -1,5 +1,4 @@
 import cv2
-import os
 import face_recognition
 import base64
 import uuid
