@@ -1,0 +1,10 @@
+flask
+gunicorn
+dlib
+face_recognition
+numpy
+tensorflow
+opencv-python
+pymongo
+matplotlib
+pillow
