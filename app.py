@@ -13,7 +13,7 @@ emotionRecognizer = EmotionRecognizer()
 def identify():
   file = request.files['file']
   img = Image.open(file)
-  uid="2ab25648e82e438b9df63fde77971356" #uid should be retrived from the request it is only for demo
+  uid="724ce139b7514ba987941736bcc21178" #uid should be retrived from the request it is only for demo
   if faceRecognizer.recognize(img, uid): # send image from multipart data and userId from header
     # Person identifued successfully
     emotion = emotionRecognizer.classify(img) # send image
@@ -31,7 +31,7 @@ def registerFace():
     generatedId = faceRecognizer.register(img) # send image from multipart data
     return jsonify({"successful":True, "userId": generatedId, "message":"Face registered successfully"}), 200 # Successful Status Code
   else:
-    return jsonify({"successful":False, "userId": "", "message":"Face registration failes"}), 403 # Forbidden Ststus Code
+    return jsonify({"successful":False, "userId": "", "message":"Face registration failed"}), 403 # Forbidden Ststus Code
     
 if __name__ == '__main__':
   app.run(host='0.0.0.0')
