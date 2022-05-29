@@ -34,4 +34,4 @@ def registerFace():
     return jsonify({"successful":False, "userId": "", "message":"Face registration failed"}), 403 # Forbidden Ststus Code
     
 if __name__ == '__main__':
-  app.run(host='0.0.0.0')
+  app.run()
