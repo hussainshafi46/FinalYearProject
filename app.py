@@ -2,6 +2,7 @@ from flask import Flask, jsonify, request
 from PIL import Image
 from facerecognition import FaceRecognizer
 from emotionrecognition import EmotionRecognizer
+from waitress import server
 
 app = Flask(__name__)
 
@@ -38,4 +39,5 @@ def registerFace():
     return jsonify({"successful":False, "userId": "", "message":"Face already registered"}), 403 # Forbidden Ststus Code
     
 if __name__ == '__main__':
-  app.run(debug=False, host='0.0.0.0')
+  #app.run(debug=False, host='0.0.0.0')
+  server(app, port=5000, host='0.0.0.0')
