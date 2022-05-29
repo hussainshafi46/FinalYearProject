@@ -60,7 +60,7 @@ class FaceRecognizer:
   def addToDatabase(self, image):
     if not self.checkRepetition(image):
       uid = uuid.uuid4().hex
-      buffered = bytesIO()
+      buffered = BytesIO()
       image.save(buffered, format='PNG')
       data = {"faceId": base64.b64encode(buffered.getvalue()), "userId": uid}
       self.db.insert_one(data)

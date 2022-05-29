@@ -51,7 +51,7 @@ class EmotionRecognizer:
     Classifies the emotion of the face
     Returns a string denoting the classified emotion
     '''
-    gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+    gray = cv2.cvtColor(np.asarray(image), cv2.COLOR_BGR2GRAY)
     #faces = self.facecasc.detectMultiScale(gray,scaleFactor=1.3, minNeighbors=5)
     #print(faces)
     #for (x, y, w, h) in faces:
