@@ -1,6 +1,7 @@
 from flask import Flask, jsonify, request
 from PIL import Image
-import base64
+from facerecognition import FaceRecognizer
+from emotionrecognition import EmotionRecognizer
 
 app = Flask(__name__)
 
@@ -15,19 +16,21 @@ def identify():
   if faceRecognizer.recognize(img, uid): # send image from multipart data and userId from header
     # Person identifued successfully
     emotion = emotionRecognizer.classify(img) # send image
-    return jsonify({"status":200, "verified":True, "emotion":emotion})
+    return jsonify({"verified":True, "emotion":emotion, "message":"Logging Successful"}), 200 # Successful Status Code
   else:
     # Recognition failed
-    return jsonify({"status":201, "verified":False, "message":"This person does not exist in the database"})
+    return jsonify({"verified":False, "emotion":"None", "message":"This person does not exist in the database"}), 401 # Unauthorized Status Code
 
 @app.route("/register", methods = ['POST'])
 def registerFace():
-  if not faceRecognizer.recognize(): # send image from multipart data (DO NOT SEND USER ID)
+  file = request.files['file']
+  img = Image.open(file)
+  if not faceRecognizer.recognize(img): # send image from multipart data (DO NOT SEND USER ID)
     # if face does not exist in database
-    generatedId = faceRecognizer.register() # send image from multipart data
-    return jsonify({"status":200, "successful":True, "userId": generatedId, "message":"Face registered successfully"})
+    generatedId = faceRecognizer.register(img) # send image from multipart data
+    return jsonify({"successful":True, "userId": generatedId, "message":"Face registered successfully"}), 200 # Successful Status Code
   else:
-    return jsonify({"status":201, "successful":False, "message":"Face registration failes"})
+    return jsonify({"successful":False, "userId": "", "message":"Face registration failes"}), 403 # Forbidden Ststus Code
     
 if __name__ == '__main__':
   app.run(debug=True)
