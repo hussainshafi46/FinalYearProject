@@ -1,0 +1,4 @@
+{
+  "appService.defaultWebAppToDeploy": "/subscriptions/0acd038f-a3ee-48dd-a47f-e67a1c0aa3c4/resourceGroups/appsvc_linux_centralus/providers/Microsoft.Web/sites/Final-YearProject",
+  "appService.deploySubpath": "."
+}
